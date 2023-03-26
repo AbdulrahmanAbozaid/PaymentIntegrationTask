@@ -13,15 +13,10 @@ paypal
           ],
         }),
       })
-        .then((res) => {
-          if (res.ok) return res.json();
-          return res.json().then((json) => Promise.reject(json));
-        })
-        .then(({ id }) => {
-          console.log(id);
-        })
+        .then((res) => res.json())
+        .then((order) => order.id)
         .catch((err) => {
-          console.error(err.error);
+          console.log(err);
         });
     },
 

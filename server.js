@@ -74,5 +74,5 @@ app.post("/create-order", async (req, res) => {
 });
 
 app.listen(process.env.PORT, "localhost", (err) => {
-  console.log(err || "Server is up and running on port " + process.env.PORT);
+  console.log("Server is up and running on port " + process.env.PORT);
 });
