@@ -29,11 +29,10 @@ app.get("/", (req, res) => {
 
 app.post("/create-order", async (req, res) => {
   const request = new paypal.orders.OrdersCreateRequest();
-  const total = req.body.items.reduce(async (sum, item) => {
-    const allItems = await itemRepo.getAllItems();
-    console.log(allItems);
+  const allItems = await itemRepo.getAllItems();
+  const total = req.body.items.reduce((sum, item) => {
     return (
-      sum + allItems.find((one) => one._id == item.id).price * item.quantity
+      sum + +allItems.find((one) => one._id == item.id).price * +item.quantity
     );
   }, 0);
   request.prefer("return=representation");
@@ -68,8 +67,7 @@ app.post("/create-order", async (req, res) => {
 
   try {
     const order = await paypalClient.execute(request);
-    console.log(order);
-    // res.json({ id: order.result.id });
+    res.json({ id: order.result.id });
   } catch (err) {
     res.status(500).json({ message: err });
   }

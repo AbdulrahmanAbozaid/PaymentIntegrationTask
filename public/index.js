@@ -21,14 +21,12 @@ paypal
           console.log(id);
         })
         .catch((err) => {
-          console.error(err);
+          console.error(err.error);
         });
     },
 
     onApprove(data, actions) {
-      return actions.order.capture().then(function () {
-        console.log("SUCCESSFUL");
-      });
+      return actions.order.capture();
     },
   })
   .render("#paypal");
