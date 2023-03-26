@@ -27,15 +27,11 @@ app.get("/", (req, res) => {
   });
 });
 
-// app.get("/items", async (req, res) => {
-//   const items = await itemRepo.getAllItems();
-//   res.status(200).json({ success: true, items });
-// });
-
 app.post("/create-order", async (req, res) => {
   const request = new paypal.orders.OrdersCreateRequest();
   const total = req.body.items.reduce(async (sum, item) => {
     const allItems = await itemRepo.getAllItems();
+    console.log(allItems);
     return (
       sum + allItems.find((one) => one._id == item.id).price * item.quantity
     );
